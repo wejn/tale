@@ -1,0 +1,12 @@
+.footnotes { 
+  border-top: .5px solid $grey-2;
+  font-size: 80%;
+
+  li {
+    padding: 0 1em 0 0;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}

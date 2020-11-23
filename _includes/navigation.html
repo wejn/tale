@@ -1,12 +1,12 @@
 <nav class="nav">
   <div class="nav-container">
     <a href="{{ site.baseurl }}/">
-      <h2 class="nav-title">{{ site.title }}</h2>
+      <h2 class="nav-title"><img src="{{ '/assets/favicon-32x32.png' | prepend: site.baseurl }}" srcset="{{ '/assets/favicon-64x64.png' | prepend: site.baseurl }} 2x, {{ '/assets/favicon-96x96.png' | prepend: site.baseurl }} 3x, {{ '/assets/favicon-128x128.png' | prepend: site.baseurl }} 4x, {{ '/assets/favicon-256x256.png' | prepend: site.baseurl }} 8x"> {{ site.title }}</h2>
     </a>
     <ul>
-      <li><a href="{{ site.baseurl }}/">Posts</a></li>
-      <li><a href="{{ '/tags' | prepend: site.baseurl }}">Tags</a></li>
-      <li><a href="{{ '/about' | prepend: site.baseurl }}">About</a></li>
+      <li><a href="{{ '/posts/' | prepend: site.baseurl }}">Posts</a></li>
+      <li><a href="{{ '/tags/' | prepend: site.baseurl }}">Tags</a></li>
+      <li><a href="{{ '/about/' | prepend: site.baseurl }}">About</a></li>
     </ul>
   </div>
 </nav>

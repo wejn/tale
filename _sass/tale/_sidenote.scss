@@ -1,0 +1,28 @@
+.sidenote {
+  position: absolute;
+  text-align: left;
+  padding-left: 20px;
+  margin-left: 20px;
+  margin-bottom: 1.5em;
+  border-left: 1px solid $default-color;
+  color: $default-color;
+  font-style: italic;
+  font-size: 0.8em;
+
+  &-header {
+    font-weight: bold;
+  }
+
+  &-hover {
+    color: $highlight-color;
+    border-color: $highlight-color;
+  }
+
+  p {
+    display: inline;
+  }
+
+  .reversefootnote {
+    display: none;
+  }
+}
