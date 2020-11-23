@@ -61,7 +61,12 @@
 
     function loadSidenotes(ww, $fnli, fncount, $fn) {
         let minh = 0;
+        // kramdown
         $("sup[role='doc-noteref']").each(function(index, el) {
+            minh = showSidenote(el.textContent - 1, $(this), ww, $fnli, minh);
+        });
+        // commonmark
+        $("sup[class='footnote-ref']").each(function(index, el) {
             minh = showSidenote(el.textContent - 1, $(this), ww, $fnli, minh);
         });
         if (ww > 420) {

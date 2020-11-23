@@ -22,7 +22,13 @@
     display: inline;
   }
 
+  /* kramdown */
   .reversefootnote {
+    display: none;
+  }
+
+  /* commonmark */
+  .footnote-backref {
     display: none;
   }
 }
