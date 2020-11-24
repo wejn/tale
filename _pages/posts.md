@@ -10,22 +10,22 @@ permalink: /posts/
     <div class="tags-header-line"></div>
   </div>
   <div class="tags-clouds">
-    {% for post in site.posts %}
-    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
-    {% if forloop.first %}<a href="#{{ this_year }}">{{ this_year }}</a>{% endif %}
-    {% unless forloop.last %}
-    {% if this_year != next_year %}<a href="#{{ next_year }}">{{ next_year }}</a>{% endif %}
-    {% endunless %}
-    {% endfor %}
+    {% for post in site.posts -%}
+    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture -%}
+    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture -%}
+    {% if forloop.first %}<a href="#{{ this_year }}">{{ this_year }}</a>{% endif -%}
+    {% unless forloop.last -%}
+    {% if this_year != next_year %}<a href="#{{ next_year }}">{{ next_year }}</a>{% endif -%}
+    {% endunless -%}
+    {% endfor -%}
   </div>
-  {% for post in site.posts %}
-    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
-    {% if forloop.first %}
+  {% for post in site.posts -%}
+    {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture -%}
+    {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture -%}
+    {% if forloop.first -%}
   <div class="tags-item" id="{{ this_year }}">
     <h2 class="tags-item-label">{{ this_year }}</h2>
-    {% endif %}
+    {% endif -%}
     <a class="tags-post" href="{{ post.url | prepend: site.baseurl }}">
       <div>
         <span class="tags-post-title">{{ post.title }}</span>
@@ -37,14 +37,14 @@ permalink: /posts/
         </time>
       </span>
     </a>
-    {% if forloop.last %}
+    {% if forloop.last -%}
   </div>
-    {% else %}
-        {% if this_year != next_year %}
+    {% else -%}
+        {% if this_year != next_year -%}
   </div>
   <div class="tags-item" id="{{ next_year }}">
     <h2 class="tags-item-label">{{ next_year }}</h2>
-        {% endif %}
-    {% endif %}
-  {% endfor %}
+        {% endif -%}
+    {% endif -%}
+  {% endfor -%}
 </div>

@@ -10,11 +10,11 @@ permalink: /tags/
     <div class="tags-header-line"></div>
   </div>
   <div class="tags-clouds">
-    {% for tag in site.tags %}
+    {% for tag in site.tags -%}
     <a href="#{{ tag[0] }}">{{ tag[0] }}</a>
     {% endfor %}
   </div>
-  {% for tag in site.tags %}
+  {% for tag in site.tags -%}
   <div class="tags-item" id="{{ tag[0] }}">
     <svg
       class="tags-item-icon"
@@ -35,7 +35,7 @@ permalink: /tags/
       <line x1="7" y1="7" x2="7.01" y2="7"></line>
     </svg>
     <h2 class="tags-item-label">{{ tag[0] }}</h2>
-    {% for post in tag[1] %}
+    {% for post in tag[1] -%}
     <a class="tags-post" href="{{ post.url | prepend: site.baseurl }}">
       <div>
         <span class="tags-post-title">{{ post.title }}</span>
