@@ -12,12 +12,14 @@
   <script src="{{ "/assets/js/sidenotes.js" | relative_url }}"></script>
 
   <!-- Favicon -->
+{% assign apple_res = "152x152,180x180,167x167" | split: ',' -%}
 {% for file in site.static_files -%}
 {% if file.path contains '/assets/favicon-' -%}
 {% assign parts = file.basename | split: '-' %}  <link rel="icon" type="image/png" sizes="{{ parts[1] }}" href="{{ file.path | relative_url }}">
+{% if apple_res contains parts[1] %}  <link rel="apple-touch-icon" sizes="{{ parts[1] }}" href="{{ file.path | relative_url }}">
+{% endif -%}
 {% endif -%}
 {% endfor %}
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ "/assets/apple-touch-icon.png" | relative_url }}">
 
   <!-- RSS -->
   {% feed_meta %}
