@@ -12,24 +12,4 @@
 @import 'tale/sidenote';
 @import 'tale/footnotes';
 @import 'tale/navigation';
-
-.stl-viewer {
-  width: 100%;
-  padding-top: 56.25%;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  }
-}
-
-.svs-custom { padding-top: 0% !important; margin: 0 auto; }
-.svs-4-3 { padding-top: 75% !important; }
-.svs-16-9 { padding-top: 56.25% !important; }
-
+@import 'stlviewer';
