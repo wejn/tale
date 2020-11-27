@@ -10,6 +10,10 @@
   <!-- scripts -->
   <script src="{{ "/assets/js/jquery.min.js" | relative_url }}"></script>
   <script src="{{ "/assets/js/sidenotes.js" | relative_url }}"></script>
+{% if page.include_stl_viewer_js -%}
+  <script src="{{ "/assets/js/stlv/stl_viewer.min.js" | relative_url }}"></script>
+  <script src="{{ "/assets/js/stlviewer-datatag.js" | relative_url }}"></script>
+{% endif -%}
 
   <!-- Favicon -->
 {% for file in site.static_files -%}
