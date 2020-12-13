@@ -1,6 +1,6 @@
 /*
  * @author: Kaushik Gopal
- * @author: Michal Jirků
+ * @author: Michal Jirku
  *
  * A jQuery function that displays the footnotes
  * on the side (sidenotes) for easier reading.
@@ -11,7 +11,7 @@
  * ---
  *
  *  Changelog:
- *  - 2020-11-23, Michal Jirků
+ *  - 2020-11-23, Michal Jirku
  *    - make sidenotes flexible width
  *    - make sidenotes not overlap one another
  *    - make sidenotes reload on font load (to help with &previous)
