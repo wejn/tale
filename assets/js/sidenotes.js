@@ -11,6 +11,11 @@
  * ---
  *
  *  Changelog:
+ *  - 2020-12-26, Michal Jirku
+ *    - switch to resizing (rather than removing and re-initializing)
+ *    - run resize triggers via setInterval and from resize/font hooks
+ *    - setInterval finally fixes iOS sizing issues for stlviewer
+ *    - remove bunch of "global" vars
  *  - 2020-11-23, Michal Jirku
  *    - make sidenotes flexible width
  *    - make sidenotes not overlap one another
@@ -21,87 +26,97 @@
  *
  */
 (function () {
-
-    function showSidenote(index, sup, ww, $fnli, minh) {
-
+    function showSidenote(index, sup, fnli, prev) {
         // construct sidenote div
-        let content = $fnli.eq(index).html();
-        let div = $(document.createElement('div'));
-        div.html("<span class=\"sidenote-header\">" + (index+1) + ". </span>" +
-            content);
+        let content = fnli.eq(index).html();
+        let div = $(document.createElement("div"));
+        div.html("<span class=\"sidenote-header\">" + (index+1) + ". </span>" + content);
         div.addClass("sidenote");
-        let position = sup.offset();
 
-        div.css({
-            position: "absolute",
-            left: ww,
-            top: minh > position["top"] ? minh : position["top"],
-            'min-width': ww > 420 ? ww/4 : ww/3,
-            'max-width': ww/3,
-        });
+        let sizeit = function() {
+            let ww = $("main").outerWidth() + $("main").offset().left;
+            let position = sup.offset();
+            let minh = 0;
+            if (prev != null) {
+                minh = prev.position().top + prev.height() + 5;
+            }
 
-        if (ww > 420) {
-            sup.hover(function() {
-                div.addClass("sidenote-hover");
-            }, function () {
-                div.removeClass("sidenote-hover");
+            div.css({
+                "position": "absolute",
+                "left": ww,
+                "top": minh > position["top"] ? minh : position["top"],
+                "min-width": ww > 420 ? ww/4 : ww/3,
+                "max-width": ww/3,
             });
-        } else {
-            div.addClass("sidenote-hover");
-        }
 
-        // console.log("props " + ww + " fn: " + $fnli.text());
+            if (ww > 420) {
+                if (div.hasClass("sidenote-perma-hover")) {
+                    div.removeClass("sidenote-hover");
+                    div.removeClass("sidenote-perma-hover");
+                }
+                sup.hover(function() {
+                    div.addClass("sidenote-hover");
+                }, function () {
+                    div.removeClass("sidenote-hover");
+                });
+            } else {
+                div.addClass("sidenote-hover");
+                div.addClass("sidenote-perma-hover");
+            }
+
+        };
+
+        sizeit();
+
+        div.data("sizing-func", sizeit); // called from hooks
+        setInterval(sizeit, 3000); // last resort, but also fix for dynamic pages
 
         $(document.body).append(div);
 
-        // console.log("sidenote: " + index + " top: " + div.position().top + " height: " + div.height());
-
-        return div.position().top + div.height() + 5;
-    }
-
-    function loadSidenotes(ww, $fnli, fncount, $fn) {
-        let minh = 0;
-        // kramdown
-        $("sup[role='doc-noteref']").each(function(index, el) {
-            minh = showSidenote(el.textContent - 1, $(this), ww, $fnli, minh);
-        });
-        // commonmark
-        $("sup[class='footnote-ref']").each(function(index, el) {
-            minh = showSidenote(el.textContent - 1, $(this), ww, $fnli, minh);
-        });
-        if (ww > 420) {
-            $fn.hide();
-        } else {
-            $fn.show();
-        }
-
+        return div;
     }
 
     $(window).on("load", function() {
-        let $fn = $(".footnotes"),
-            $fnli = $fn.find("ol li"),
-            fncount = $fnli.length,
-            ww = $("main").outerWidth() + $("main").offset().left;
+        let fnli = $(".footnotes").find("ol li");
 
-        // load first time
-        loadSidenotes(ww, $fnli, fncount, $fn);
-
-        $(window).resize(function() {
-            const new_ww = $("main").outerWidth() + $("main").offset().left;
-            if (new_ww === ww) return;
-
-            // console.log(" XXX -- RESIZE -- XXX ");
-            ww = new_ww;
-            $(".sidenote").remove();
-            loadSidenotes(ww, $fnli, fncount, $fn);
+        // Load sidenotes
+        let prev = null;
+        // kramdown
+        $("sup[role='doc-noteref']").each(function(index, el) {
+            prev = showSidenote(el.textContent - 1, $(this), fnli, prev);
+        });
+        // commonmark
+        $("sup[class='footnote-ref']").each(function(index, el) {
+            prev = showSidenote(el.textContent - 1, $(this), fnli, prev);
         });
 
-        // fonts have a power to blow up the size of the sidenotes, hence the
-        // need to adjust
+
+        // Helper functions
+        let hideNotes = function() {
+            const ww = $("main").outerWidth() + $("main").offset().left;
+            if (ww > 420) {
+                $(".footnotes").hide();
+            } else {
+                $(".footnotes").show();
+            }
+        };
+
+        let resizeNotes = function() {
+            $(".sidenote").each(function(index, el) {
+                $(this).data("sizing-func")();
+            });
+        };
+
+        // Run + bind them to triggers
+        hideNotes();
+
+        $(window).resize(function() {
+            hideNotes();
+            resizeNotes();
+        });
+
         document.fonts.onloadingdone = function(fss) {
-            ww = $("main").outerWidth() + $("main").offset().left;
-            $(".sidenote").remove();
-            loadSidenotes(ww, $fnli, fncount, $fn);
+            resizeNotes();
         };
     });
 
