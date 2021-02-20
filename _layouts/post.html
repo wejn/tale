@@ -23,6 +23,14 @@ layout: default
   </div>
 
   <h1 class="post-title">{{ page.title }}</h1>
+
+  <div class="tags-clouds">
+  {% assign pt = page.tags | sort -%}
+  {% for tag in pt -%}
+    <a href="/tags/#{{ tag }}">{{ tag }}</a>
+  {% endfor %}
+  </div><br />
+
   <div class="post-line"></div>
 
   {{ content }}
