@@ -34,7 +34,7 @@ permalink: /tags/
       ></path>
       <line x1="7" y1="7" x2="7.01" y2="7"></line>
     </svg>
-    <h2 class="tags-item-label">{{ tag[0] }}</h2>
+    <h2 class="tags-item-label">{{ tag[0] | replace: '_', ' ' }} <span><a href="/feed/by_tag/{{ tag[0] }}.xml">{feed}</a></span></h2>
     {% for post in tag[1] -%}
     <a class="tags-post" href="{{ post.url | prepend: site.baseurl }}">
       <div>
