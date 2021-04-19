@@ -1,3 +1,17 @@
 details summary {
   cursor: pointer;
+  color: $blue;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
+
+details[open] summary {
+  color: $default-color;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
