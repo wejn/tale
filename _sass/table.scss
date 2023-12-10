@@ -1,0 +1,17 @@
+table {
+  border: 2px solid $blue;
+  border-collapse: collapse;
+  margin: 1em 0em;
+}
+table th {
+  border: 1px solid $grey-1;
+  padding: 0.2em 0.5em;
+}
+table th:not([colspan]) {
+  border-bottom: 2px solid $blue;
+}
+table td {
+  text-align: left;
+  border: 1px solid #aaa;
+  padding: 0.2em 0.5em;
+}
