@@ -17,6 +17,9 @@
   <script src="{{ "/assets/js/stlv/OrbitControls.js" | relative_url }}"></script>
   <script src="{{ "/assets/js/stlviewer-datatag.js" | relative_url }}"></script>
 {% endif -%}
+{% if page.include_graphviz_js -%}
+  <!-- one day, I will add graphviz interactivity ... -->
+{% endif -%}
 
   <!-- Favicon -->
 {% for file in site.static_files -%}
