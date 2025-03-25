@@ -40,17 +40,18 @@
     text-decoration: underline;
   }
 
-  img {
+  img, div.svg-img {
     margin: 0 auto 0.5rem;
   }
 
-  img + em {
+  img + em, div.svg-img + em {
     color: $default-tint;
     display: block;
     font-family: $sans-serif;
     font-size: 0.9rem;
     font-style: normal;
     text-align: center;
+    margin: 0 0 1rem;
   }
 
   // CSS for making emoji inline
