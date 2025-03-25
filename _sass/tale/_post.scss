@@ -40,7 +40,13 @@
     text-decoration: underline;
   }
 
+  div.svg-img svg {
+    display: block;
+    margin: 0 auto;
+  }
+
   img, div.svg-img {
+    display: block;
     margin: 0 auto 0.5rem;
   }
 
